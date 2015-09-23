@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.StdOut;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -7,33 +9,55 @@ import java.util.Stack;
  */
 public class reversePolish {
 
-    public static String workingMethod(){
-        String x = null;
-        String input = "2 3 + 4 ∗ 3 2 + 1 2 + ∗ +";
-        String[] working = input.split(" ");
+    public static int reversePolishNotation(String[] tokens){
+        int returnValue = 0;
+        Stack<String> stack = new Stack<>();
 
+//        while size of stack is bigger then 1
 
-        Stack<String> revPol = new Stack<>();
+        for (String t: tokens){
+            StdOut.println();
+            if(!isOperator(t.charAt(0))) {
+                StdOut.print("Pushing" + t);
 
-        for (int i = 0; i < working.length; i++) {
-            revPol.push(working[i]);
+                stack.push(t);
+            } else {
 
-            if (revPol.peek() == "+" || revPol.peek() == "*"){
-                StdOut.print(revPol.pop());
+                String as = stack.pop();
+                String bs = stack.pop();
+                StdOut.print(t + as + bs);
+                int a = Integer.valueOf(as);
+                int b = Integer.valueOf(bs);
+                switch (t) {
+                    case "+" :
+                        stack.push(String.valueOf(a + b));
+                        break;
+                    case "*":
+                    case "∗":
+                        stack.push(String.valueOf(a * b));
+                        break;
+                }
             }
         }
 
-//        while (!revPol.empty()){
-//                if (revPol.peek() == "1"){
-//                    StdOut.print(revPol.pop());
-//            }
-//
-//        }
-
-        return revPol.toString();
+        returnValue = Integer.valueOf(stack.pop());
+        StdOut.println();
+        return returnValue;
     }
 
-    public static void main(String [] args){
-        StdOut.print(workingMethod());
+    private static boolean isOperator(char t) {
+        char[] operators = {'*', '+', '∗'};
+        for (char ops : operators){
+            if(ops == t) return true;
+        }
+
+        return false;
+    }
+
+    public static void main(String [] args) throws IOException {
+        String[] test = {"2", "3", "+", "4", "∗", "3", "2", "+", "1", "2", "+", "∗", "+"};
+        //String[] tokens1 = test.split(" ");
+        String[] tokens = new String [] {"2", "1", "+", "3", "*"};
+        StdOut.println(reversePolishNotation(test));
     }
 }
