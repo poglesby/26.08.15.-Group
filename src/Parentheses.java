@@ -11,7 +11,9 @@ public class Parentheses {
 
     static String createTestString(){
         String testString = "[()]{}{[()()]()}";
+        String falseTest = "{[(]}";
         return testString;
+        //return falseTest;
     }
 
     static boolean isOpener(char opener){
