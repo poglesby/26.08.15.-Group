@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * Created by poglesbyg on 22/09/15.
  */
-public class reversePolish {
+public class ReversePolish {
 
     public static int reversePolishNotation(String[] tokens){
         int returnValue = 0;
