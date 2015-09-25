@@ -1,7 +1,10 @@
-import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
+
+import static edu.princeton.cs.algs4.StdIn.*;
+import static edu.princeton.cs.algs4.StdOut.*;
+import static edu.princeton.cs.algs4.StdRandom.*;
 
 /**
  * Created by poglesbyg on 26/08/15.
@@ -9,7 +12,7 @@ import edu.princeton.cs.algs4.StdRandom;
 public class QuickSort {
 
     public static <Key extends Comparable<Key>> void sort(Key[] a){
-        StdRandom.shuffle(a);
+        shuffle(a);
         quicksort(a,0,a.length-1);
     }
 
@@ -51,8 +54,8 @@ public class QuickSort {
 
     private static <Key extends Comparable<Key>> void show(Key[] a){
         for (Key o : a)
-            StdOut.print(o + " ");
-        StdOut.print();
+            print(o + " ");
+        print();
     }
 
     public static <Key extends Comparable<Key>> boolean isSorted(Key[] a){
@@ -65,7 +68,7 @@ public class QuickSort {
     }
 
     public static void main(String[] args){
-        String[] a = StdIn.readAllLines();
+        String[] a = readAllLines();
         sort(a);
         show(a);
         assert isSorted(a);
