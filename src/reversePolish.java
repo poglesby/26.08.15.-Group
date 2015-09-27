@@ -25,7 +25,7 @@ public class ReversePolish {
 
                 String as = stack.pop();
                 String bs = stack.pop();
-                StdOut.print(t + as + bs);
+                StdOut.print(t + " " + as + " " + bs);
                 int a = Integer.valueOf(as);
                 int b = Integer.valueOf(bs);
                 switch (t) {
@@ -35,6 +35,12 @@ public class ReversePolish {
                     case "*":
                     case "∗":
                         stack.push(String.valueOf(a * b));
+                        break;
+                    case "/":
+                        stack.push(String.valueOf(a / b));
+                        break;
+                    case "-":
+                        stack.push(String.valueOf(a - b));
                         break;
                 }
             }
@@ -46,7 +52,7 @@ public class ReversePolish {
     }
 
     private static boolean isOperator(char t) {
-        char[] operators = {'*', '+', '∗'};
+        char[] operators = {'*', '+', '∗','/','-'};
         for (char ops : operators){
             if(ops == t) return true;
         }
@@ -56,8 +62,11 @@ public class ReversePolish {
 
     public static void main(String [] args) throws IOException {
         String[] test = {"2", "3", "+", "4", "∗", "3", "2", "+", "1", "2", "+", "∗", "+"};
+        String[] moreDifficultTest = {"2", "3", "+", "4", "∗", "3", "2", "+", "1", "2", "+", "∗", "+", "1", "2","/","1","3","-","*","-"};
         //String[] tokens1 = test.split(" ");
-        String[] tokens = new String [] {"2", "1", "+", "3", "*"};
+        //String[] tokens = new String [] {"2", "1", "+", "3", "*"};
         StdOut.println(reversePolishNotation(test));
+        StdOut.println();
+        //StdOut.println(reversePolishNotation(moreDifficultTest));
     }
 }

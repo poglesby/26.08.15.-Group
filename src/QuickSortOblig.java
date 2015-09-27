@@ -1,54 +1,111 @@
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.Stopwatch;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by poglesbyg on 26/08/15.
  */
 public class QuickSortOblig {
+    private static ArrayList<Integer> a;
 
-    private int[] numbers;
-    private int number;
-
-    public void sort(int[] values) {
-        // check for empty or null array
-        if (values == null || values.length==0){
-            return;
+    public static ArrayList<Integer> readFile(String file_path) throws IOException {
+        Scanner s = new Scanner(new File(file_path));
+        ArrayList<Integer> list = new ArrayList<>();
+        while (s.hasNext()){
+            list.add(Integer.valueOf(s.next()));
         }
-        this.numbers = values;
-        number = values.length;
-        quicksort(0, number -1);
+        s.close();
+
+        return list;
     }
 
-    private void quicksort(int low, int high) {
-        int i = low, j = high;
-        // get the pivot
-        int pivot = numbers[low + (high-low)/2];
+    public static void main(String[] args) throws IOException {
 
-        while (i <= j){
-            while (numbers[i] < pivot){
-                i++;
+        QuickSortOblig app = new QuickSortOblig();
+
+        //Generate an integer array of length 7
+        List<Integer> input = (readFile("data.txt"));
+        List<Integer> sortedInput = (readFile("sortedData.txt"));
+
+        Stopwatch stopwatchR = new Stopwatch();
+        Stopwatch stopwatchS = new Stopwatch();
+
+        //Before sort
+        //System.out.println(input);
+
+        //After sort
+        app.quicksort(input);
+        StdOut.println("Randomized Data");
+        StdOut.println(stopwatchR.elapsedTime());
+
+        StdOut.println("Sorted Data");
+        app.quicksort(sortedInput);
+        StdOut.print(stopwatchS.elapsedTime());
+
+    }
+
+    /**
+     * This method sort the input ArrayList using quick sort algorithm.
+     * @param input the ArrayList of integers.
+     * @return sorted ArrayList of integers.
+     */
+    private List<Integer> quicksort(List<Integer> input){
+
+        if(input.size() <= 1){
+            return input;
+        }
+
+        int middle = (int) Math.ceil((double)input.size() / 2);
+        int pivot = input.get(middle);
+
+        List<Integer> less = new ArrayList<Integer>();
+        List<Integer> greater = new ArrayList<Integer>();
+
+        for (int i = 0; i < input.size(); i++) {
+            if(input.get(i) <= pivot){
+                if(i == middle){
+                    continue;
+                }
+                less.add(input.get(i));
             }
-            while (numbers[i] < pivot){
-                j--;
-            }
-            if (i<= j){
-                exchange(i,j);
-                i++;
-                j--;
+            else{
+                greater.add(input.get(i));
             }
         }
-        if (low < j)
-            quicksort(low, j);
-        if (i < high)
-            quicksort(i, high);
+
+        return concatenate(quicksort(less), pivot, quicksort(greater));
     }
 
-    private void exchange(int i, int j) {
-        int temp = numbers[i];
-        numbers[i] = numbers[j];
-        numbers[j] = temp;
+    /**
+     * Join the less array, pivot integer, and greater array
+     * to single array.
+     * @param less integer ArrayList with values less than pivot.
+     * @param pivot the pivot integer.
+     * @param greater integer ArrayList with values greater than pivot.
+     * @return the integer ArrayList after join.
+     */
+    private List<Integer> concatenate(List<Integer> less, int pivot, List<Integer> greater){
+
+        List<Integer> list = new ArrayList<Integer>();
+
+        for (int i = 0; i < less.size(); i++) {
+            list.add(less.get(i));
+        }
+
+        list.add(pivot);
+
+        for (int i = 0; i < greater.size(); i++) {
+            list.add(greater.get(i));
+        }
+
+        return list;
     }
 
-    public static void main(String[] args){
 
-    }
 }
+
