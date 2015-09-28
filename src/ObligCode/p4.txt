@@ -1,0 +1,29 @@
+Selectionsort:
+Selection sort is not stable because it changes the elements' places at runtime. If one element is matched with another item in the list it is moved,
+then it may end up further back in the list than the second element it is identical to.
+
+Shell sort:
+Shell sort is also unstable. Shell sort disregards the makeover items because it compares two random items in the list and then moves them accordingly.
+It quickly becomes impossible to keep track of what item was first / last in the list of makeover elements.
+
+Quick Sort:
+Quick Sort is stable if the input is not shuffled. If input is shuffled then it becomes not the relative order to make objects are maintained.
+If not shuffle data before a pivot with quick sort so takes quick sort as to what items were first / last of makeover elements.
+ If we shuffle data, so we lose this. That's when shuffling them possibly makes quick sort unstable, and not the actual algorithm.
+ A good implementation of quicksort is stable.
+
+Insertion sort:
+Stable. Insertion sort takes into account the relative order of elements with the same value. Insertion sort goes through the list and
+sorts one element at a time, so elements will retain their relative place in the sequence.
+
+MergeSort bottom-up:
+Stable. Merge sort parts list into several pieces, and put it together again one item at a time. The way this is done on causes
+the algorithm takes into account the original order to make items. Ie there is nowhere in the algorithm where coincidence makes the
+original order of the images, so the algorithm then takes this into account.
+
+MergeSort top-down:
+Stable. Same applies as for merge sort bottom-up.
+
+HeapSort:
+Unlike merge sort so heap sort takes no account of the original order to make
+elements.
